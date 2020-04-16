@@ -641,19 +641,97 @@ As a final project for the course, each student was tasked to develop a walking 
         \end{table}
 \chapter{Results}\label{chap:Results}
 
-\begin{figure}
+
+
+
+\section{Design results}
+\begin{figure}[H]
         \centering
-        \includegraphics[width = 0.7\textwidth]{Images/ExplodedView.PNG}
+        \begin{tikzpicture}
+        \begin{scope}[xshift=1.5cm]
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.75\textwidth]{Images/ExplodedView.png}};
+                \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            
+                    \node [anchor=west] (L0_L) at (0.25,1.1) {Link 0};
+                    \node [anchor=west] (L1) at (0.25,1.1) {Link 1}
+                    \node [anchor=west] (L2) at (0.25,1.1) {Link 2};
+                    \node [anchor=west] (L0_T) at (0.25,1.1) {Link 0};
+                    \node [anchor=west] (L1_T) at (0.25,1.1) {Link 1};
+                    \node [anchor=west] (L0_H) at (0.25,1.1) {Link 0};
+                    \node [anchor=west] (L1_H) at (0.25,1.1) {Link 1};
+                    \node [anchor=west] (Leg) at (0.25,1.1) {Leg};
+                    \node [anchor=west] (Tail) at (0.25,1.1) {Tail};
+                    \node [anchor=west] (Head) at (0.25,1.1) {Head};
+         
+                    \draw[red,thick] (0.59,0.59) circle (0.35cm);    
+                    \draw[red,thick] (0.6,0.5) circle (0.35cm);
+                    \draw[red,thick] (0.68,0.43) circle (0.35cm);
+                    \draw[red,thick] (0.62,0.7) circle (0.2cm);
+                    \draw[red,thick] (0.65,0.75) circle (0.3cm);
+                    \draw[red,thick] (0.36,0.445) circle (0.2cm);
+                    \draw[red,thick] (0.315,0.46) circle (0.25cm);
+                    
+                    \draw [-latex,thick, red] (PSU) to[out=0, in=90] (0.485,0.97);
+                
+                \end{scope}
+            \end{scope}
+        \end{tikzpicture}%
         \caption{Exploded View of the Robot}
         \label{fig:ExplodedView}
     \end{figure}
     
-\begin{figure}
-        \centering
-        \includegraphics[width = 0.7\textwidth]{Images/Motherboard.png}
-        \caption{Exploded View of the Robot}
-        \label{fig:ExplodedView}
-    \end{figure}
+    
+    
+    
+    
+\section{Electronics Results}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{scope}[xshift=1.5cm]
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.75\textwidth]{Images/Motherboard.png}};
+                \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                
+                    \node [anchor=west] (PSU) at (0.25,1.1) {\thead{6V 20A\\PSU}};
+                    \node [anchor=west] (FUSES) at (-0.1,1.1) {Limb Fuses};
+                    \node [anchor=west] (CS) at (1.01,0.2) {\thead{Current\\Sensors}};
+                    \node [anchor=west] (MOTORCONN) at (-0.16,0.3) {\thead{Servo\\Connectors}};
+                    \node [anchor=west] (ESP32) at (0.15,-0.1) {ESP32};
+                    \node [anchor=west] (SM) at (0.75,-0.1) {Safety MCU};
+                    \node [anchor=west] (IMU) at (0.4,-0.1) {IMU};
+                    \node [anchor=west] (BC) at (1.05,0.8) {\thead{Battery \\Charger}};
+                    \node [anchor=west] (USBCPD) at (0.8,1.2) {\thead{USB-C PD\\Power\& Programming}};
+                
+                    \draw[red,thick,rounded corners] (0.3,0.71) rectangle (0.61,0.97);
+                    \draw[red,thick,rounded corners] (0.62,0.55) rectangle (0.95,0.95);
+                    \draw[red,thick] (0.01,0.15) rectangle (0.125,0.825);    
+                    
+                    \draw [-latex,thick, red] (PSU) to[out=0, in=90] (0.485,0.97);
+                    \draw [-latex,thick, red] (USBCPD) to[out=180, in=90] (0.75,0.99);
+                    \draw [-latex,thick, red] (BC) to[out=180, in=0] (0.95,0.75);
+                    \draw [-latex,thick, red] (ESP32) to[out=90, in=-90] (0.35,0.27);
+                    \draw [-latex,thick, red] (IMU) to[out=90, in=-90] (0.5,0.45);
+                    \draw [-latex,thick, red] (SM) to[out=180, in=0] (0.6,0.4);
+                    \draw [-latex,thick, red] (MOTORCONN) to[out=90, in=180] (0.01,0.55);
+                    \draw [-latex,thick, red] (FUSES) to[out=0, in=90] (0.15,0.95);
+                    \draw [-latex,thick, red] (CS) to[out=180, in=0] (0.8175,0.21);
+                
+            \end{scope}
+        \end{scope}
+    \end{tikzpicture}%
+    \caption{Resulting Motherboard}
+    \label{fig:Motherboard}
+\end{figure}
+
+
+
+
+    
+    
+    
+    
+    
+\section{Walking and Accuracy}
 A series of tests were run to compare the robots ability to perform tasks required for the teaching objectives listed in section \ref{sec:DesignReqs}. In order to prove the robots ability to correctly demonstrate forward and inverse kinematics and to ensure the kinematic equations being used were accurate, high accuracy magnetic encoders were attached to the joints and the joint angles recorded through out the actions. In order to prove the inverse kinematic of the system, an initial reachable point in a legs work space was given and a second point in the work space  and the path the leg followed is compared to the theoretical, straight line path between the two points is shown in Fig. \ref{fig:IK}
 
     \begin{figure}[H]
@@ -678,9 +756,16 @@ Following these tests, testing the ability to follow a given trajectory using a 
   	\label{fig:gait}
 \end{figure}
 
-As can be seen in Fig.\ref{fig:IK} the robot is able to accurately move between 2 given points and back to the origin, in a controlled motion with a high degree of accuracy with a mean error of 1.72 $\pm$ 2.26mm. This was then tested in the robots ability to follow a generated trajectory, the generated trajectory was a single cycle of the developed walking gait. The robots ability to accurately follow this path is seen in \ref{fig:gait} with a mean error of 1.39$\pm$2.012mm. In the gait cycle developed there is a great margin of error available due to the minor compensation computed by the integrated IMU.
+As can be seen in Fig.\ref{fig:IK} the robot is able to accurately move between 2 given points and back to the origin, in a controlled motion with a high degree of accuracy with a mean error of 1.72 $\pm$ 2.26mm. This was then tested in the robots ability to follow a generated trajectory, the generated trajectory was a single cycle of the developed walking gait. The robots ability to accurately follow this path is seen in Fig.\ref{fig:gait} with a mean error of 1.39$\pm$2.012mm. In the gait cycle developed there is a great margin of error available due to the minor compensation computed by the integrated IMU.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%More needs to be added here to reference the figure below this
+
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
@@ -713,6 +798,16 @@ As can be seen in Fig.\ref{fig:IK} the robot is able to accurately move between 
     \caption{Gait Generation as Shown on Robot}
     \label{fig:finalMotion}
 \end{figure}
+
+
+
+
+\section{Course Implementation}
+
+
+
+
+
 
 \section{Limitations}
 There are a number of limitations of this system to this system primarily due to the choice of motors used. The chosen hobby servos have limited torque, slow speed and relatively slow update frequency of only \approximately330Hz. These limitations limit the size of the platform being maxed out at its current size with a very minimal payload capability. In addition to this without further sensor integration such as encoders for each limb, there is a limit to the possible accuracy of the platform. Despite these limitations the platform and its supporting architecture is capable of performing all required tasks and well as perform all necessary sub sections required in the reaching process. 
